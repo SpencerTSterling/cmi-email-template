@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Email Template Generator</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    label { display: block; margin-top: 10px; }
-    input, textarea, button { width: 100%; padding: 8px; margin-top: 5px; }
-    textarea { height: 200px; }
+    body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 5px; font-size: 1rem; }
+    .row { display: flex; gap: 10px; }
+    .row input { flex: 1; }
+    textarea { height: 300px; }
   </style>
 </head>
 <body>
@@ -17,40 +19,58 @@
   <label for="clientName">Client Name</label>
   <input type="text" id="clientName" placeholder="e.g., John Doe" />
 
-  <label for="dol">Date of Loss (DOL)</label>
-  <input type="date" id="dol" />
+  <div class="row">
+    <div style="flex: 1">
+      <label for="dol">Date of Loss (DOL)</label>
+      <input type="date" id="dol" />
+    </div>
 
-  <label for="lorDate">Letter of Representation Sent On</label>
-  <input type="date" id="lorDate" />
+    <div style="flex: 1">
+      <label for="lorDate">Letter of Representation Sent On</label>
+      <input type="date" id="lorDate" />
+    </div>
+  </div>
 
   <button onclick="generateEmail()">Generate Email</button>
 
   <label for="output">Generated Email</label>
-  <textarea id="output" readonly></textarea>
+  <textarea id="output" readonly wrap="soft" style="white-space: pre-wrap;"></textarea>
+
 
   <script>
-    function generateEmail() {
-      const clientName = document.getElementById('clientName').value.trim();
-      const dol = document.getElementById('dol').value;
-      const lorDate = document.getElementById('lorDate').value;
-
-      /*
-      if (!clientName || !dol || !lorDate) {
-        alert("Please fill in all fields.");
-        return;
-      }
-    */
-
-      const email = `Hello,
-      
-                    \n I’m reaching out to request a letter of acknowledgment addressed to SEARS INJURY LAW confirming receipt of our representation of our client, ${clientName}, DOL ${dol}. A letter of representation was sent on ${lorDate}.\n\nI am also requesting any declaration pages, any colored property damage photos, vehicle estimates, or documents of total loss that you may have at this time.
-                     
-                     \nIf these documents have already been sent, I appreciate your patience. Please forward them directly to this email so we can ensure they are properly filed in the client’s case.
-                     
-                     \n\nThank you for your time and assistance,`;
-
-      document.getElementById('output').value = email;
+    // Format date to M/D/YYYY
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     }
+
+    function generateEmail() {
+  const clientName = document.getElementById('clientName').value.trim();
+  const dol = document.getElementById('dol').value;
+  const lorDate = document.getElementById('lorDate').value;
+
+  if (!clientName || !dol || !lorDate) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const formattedDOL = formatDate(dol);
+  const formattedLOR = formatDate(lorDate);
+
+  const email = `Hello,
+
+I’m reaching out to request a letter of acknowledgment addressed to SEARS INJURY LAW confirming receipt of our representation of your insured, ${clientName}, DOL ${formattedDOL}. 
+A letter of representation was sent on ${formattedLOR}.
+
+I am also requesting any declaration pages, any colored property damage photos, vehicle estimates, or documents of total loss that you may have at this time.
+
+If these documents have already been sent, I appreciate your patience. Please forward them directly to this email so we can ensure they are properly filed in the client’s case.
+
+Thank you for your time and assistance,`;
+
+  document.getElementById('output').value = email;
+}
+
   </script>
 </body>
 </html>
