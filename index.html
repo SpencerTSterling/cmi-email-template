@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Template Generator</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    input, textarea, button { width: 100%; padding: 8px; margin-top: 5px; }
+    textarea { height: 200px; }
+  </style>
+</head>
+<body>
+  <h1>Email Template Generator</h1>
+
+  <label for="clientName">Client Name</label>
+  <input type="text" id="clientName" placeholder="e.g., John Doe" />
+
+  <label for="dol">Date of Loss (DOL)</label>
+  <input type="date" id="dol" />
+
+  <label for="lorDate">Letter of Representation Sent On</label>
+  <input type="date" id="lorDate" />
+
+  <button onclick="generateEmail()">Generate Email</button>
+
+  <label for="output">Generated Email</label>
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    function generateEmail() {
+      const clientName = document.getElementById('clientName').value.trim();
+      const dol = document.getElementById('dol').value;
+      const lorDate = document.getElementById('lorDate').value;
+
+      /*
+      if (!clientName || !dol || !lorDate) {
+        alert("Please fill in all fields.");
+        return;
+      }
+    */
+
+      const email = `Hello,
+      
+                    \n I’m reaching out to request a letter of acknowledgment addressed to SEARS INJURY LAW confirming receipt of our representation of our client, ${clientName}, DOL ${dol}. A letter of representation was sent on ${lorDate}.\n\nI am also requesting any declaration pages, any colored property damage photos, vehicle estimates, or documents of total loss that you may have at this time.
+                     
+                     \nIf these documents have already been sent, I appreciate your patience. Please forward them directly to this email so we can ensure they are properly filed in the client’s case.
+                     
+                     \n\nThank you for your time and assistance,`;
+
+      document.getElementById('output').value = email;
+    }
+  </script>
+</body>
+</html>
