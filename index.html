@@ -36,41 +36,37 @@
   <label for="output">Generated Email</label>
   <textarea id="output" readonly wrap="soft" style="white-space: pre-wrap;"></textarea>
 
-
   <script>
-    // Format date to M/D/YYYY
     function formatDate(dateStr) {
       const date = new Date(dateStr);
       return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
     }
 
     function generateEmail() {
-  const clientName = document.getElementById('clientName').value.trim();
-  const dol = document.getElementById('dol').value;
-  const lorDate = document.getElementById('lorDate').value;
+      const clientName = document.getElementById('clientName').value.trim();
+      const dol = document.getElementById('dol').value;
+      const lorDate = document.getElementById('lorDate').value;
 
-  if (!clientName || !dol || !lorDate) {
-    alert("Please fill in all fields.");
-    return;
-  }
+      if (!clientName || !dol || !lorDate) {
+        alert("Please fill in all fields.");
+        return;
+      }
 
-  const formattedDOL = formatDate(dol);
-  const formattedLOR = formatDate(lorDate);
+      const formattedDOL = formatDate(dol);
+      const formattedLOR = formatDate(lorDate);
 
-  const email = `Hello,
+      const email = `Hello,
 
-I’m reaching out to request a letter of acknowledgment addressed to SEARS INJURY LAW confirming receipt of our representation of our client ${clientName}, DOL ${formattedDOL}. 
-A letter of representation was sent on ${formattedLOR}.
+I’m reaching out to request a letter of acknowledgment addressed to SEARS Injury Law, confirming receipt of our representation of our client, ${clientName}, DOL ${formattedDOL}. A letter of representation was sent on ${formattedLOR}.
 
-I am also requesting any declaration pages, any colored property damage photos, vehicle estimates, or documents of total loss that you may have at this time.
+Please also provide any available declaration pages, colored property damage photos, vehicle estimates, or total loss documentation currently on file. If these documents are not available or are handled by another party, any information you can provide regarding the appropriate contact would be appreciated.
 
-If these documents have already been sent, I appreciate your patience. Please forward them directly to this email so we can ensure they are properly filed in the client’s case.
+If the requested documents have already been provided, thank you for your patience. Feel free to forward them directly to this email so we can ensure they are properly filed in the client’s case.
 
 Thank you for your time and assistance,`;
 
-  document.getElementById('output').value = email;
-}
-
+      document.getElementById('output').value = email;
+    }
   </script>
 </body>
 </html>
