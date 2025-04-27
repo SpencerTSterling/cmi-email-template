@@ -55,7 +55,8 @@
       const formattedDOL = formatDate(dol);
       const formattedLOR = formatDate(lorDate);
 
-      const email = `Hello,
+      const email = 
+        `Hello,
 
 I’m reaching out to request a letter of acknowledgment addressed to SEARS Injury Law, confirming receipt of our representation of our client, ${clientName}, DOL ${formattedDOL}. A letter of representation was sent on ${formattedLOR}.
 
@@ -63,7 +64,8 @@ Please also provide any available declaration pages, colored property damage pho
 
 If the requested documents have already been provided, thank you for your patience. Feel free to forward them directly to this email so we can ensure they are properly filed in the client’s case.
 
-Thank you for your time and assistance,`;
+Thank you for your time and assistance,
+        `.trim();
 
       document.getElementById('output').value = email;
     }
