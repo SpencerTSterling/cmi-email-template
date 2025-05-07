@@ -3,18 +3,17 @@ function formatDate(dateStr) {
     return `${date.getUTCMonth() + 1}/${date.getUTCDate()}/${date.getUTCFullYear()}`;
   }
 
-/**
- * Generate a document request email based on selected options.
- * @param {Object} params - The inputs to control email content.
- * @param {boolean} params.LOA - Whether LOA (Letter of Acknowledgment) is checked.
- * @param {boolean} params.DEC - Whether Declaration Pages are checked.
- * @param {boolean} params.PD - Whether Property Damage documents are checked.
- * @param {string} params.clientName - The full name of the client.
- * @param {string} params.DOL - Date of Loss.
- * @param {string} params.repDate - Date the letter of representation was sent.
- * @returns {string} The full email text.
- */
-function generateEmail({ LOA, DEC, PD, clientName, DOL, repDate }) {
+
+function generateEmail() {
+
+    const clientName = document.getElementById("clientName").value.trim();
+    const DOL = document.getElementById("dol").value;
+    const repDate = document.getElementById("lorDate").value;
+
+    const LOA = document.getElementById("loa").checked;
+    const DEC = document.getElementById("dec").checked;
+    const PD = document.getElementById("pd").checked;
+
     // Helper text chunks
     const chunks = {
       LOA: `a letter of acknowledgment addressed to SEARS Injury Law, confirming receipt of our representation of our client, ${clientName}, DOL ${DOL}`,
@@ -22,14 +21,12 @@ function generateEmail({ LOA, DEC, PD, clientName, DOL, repDate }) {
       PD: `any available color property damage photos, vehicle estimates, or total loss documentation regarding our client, ${clientName}’s vehicle, DOL ${DOL}`
     };
   
-    const extraNote = `If these documents are not available or are handled by another party, any information you can provide regarding the appropriate contact would be appreciated.`;
+    const extraNote = `\nIf these documents are not available or are handled by another party, any information you can provide regarding the appropriate contact would be appreciated.`;
   
-    const closing = `
+    const closing = `\n
   If the requested documents have already been provided, thank you for your patience. Feel free to forward them directly to this email so we can ensure they are properly filed in the client’s case.
   
-  Thank you for your time and assistance,
-  
-  [Signature]`;
+  Thank you for your time and assistance,`;
   
     // Determine order and selections
     const selected = [];
@@ -62,7 +59,7 @@ function generateEmail({ LOA, DEC, PD, clientName, DOL, repDate }) {
       // Combine with commas and "and"
       const extrasText = extraChunks.length === 1
         ? extraChunks[0]
-        : `${extraChunks.slice(0, -1).join(", ")}, or ${extraChunks.slice(-1)}`;
+        : `${extraChunks.slice(0, -1).join(", ")}, and ${extraChunks.slice(-1)}`;
   
       email += `\n\nPlease also provide any available ${extrasText} currently on file.`;
   
@@ -79,8 +76,7 @@ function generateEmail({ LOA, DEC, PD, clientName, DOL, repDate }) {
   
     // Add closing
     email += closing;
-  
-    return email;
+    document.getElementById("output").value = email;
   }
   
   
