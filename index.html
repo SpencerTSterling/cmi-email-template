@@ -13,6 +13,17 @@
   <label for="clientName">Client Name</label>
   <input type="text" id="clientName" placeholder="e.g., John Doe" />
 
+  <div class="checkbox-group">
+    <label for="loa">LOA</label>
+    <input type="checkbox" id="loa" />
+
+    <label for="dec">DEC</label>
+    <input type="checkbox" id="dec" />
+
+    <label for="pd">PD</label>
+    <input type="checkbox" id="pd" />
+  </div>
+
   <div class="row">
     <div style="flex: 1">
       <label for="dol">Date of Loss (DOL)</label>
@@ -28,41 +39,8 @@
   <button onclick="generateEmail()">Generate Email</button>
 
   <label for="output">Generated Email</label>
-  <textarea id="output" readonly wrap="soft" style="white-space: pre-wrap;"></textarea>
+  <textarea id="output" wrap="soft" style="white-space: pre-wrap;"></textarea>
 
-  <script>
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    }
-
-    function generateEmail() {
-      const clientName = document.getElementById('clientName').value.trim();
-      const dol = document.getElementById('dol').value;
-      const lorDate = document.getElementById('lorDate').value;
-
-      if (!clientName || !dol || !lorDate) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      const formattedDOL = formatDate(dol);
-      const formattedLOR = formatDate(lorDate);
-
-      const email = 
-        `Hello,
-
-I’m reaching out to request a letter of acknowledgment addressed to SEARS Injury Law, confirming receipt of our representation of our client, ${clientName}, DOL ${formattedDOL}. A letter of representation was sent on ${formattedLOR}.
-
-Please also provide any available declaration pages, colored property damage photos, vehicle estimates, or total loss documentation currently on file. If these documents are not available or are handled by another party, any information you can provide regarding the appropriate contact would be appreciated.
-
-If the requested documents have already been provided, thank you for your patience. Feel free to forward them directly to this email so we can ensure they are properly filed in the client’s case.
-
-Thank you for your time and assistance,
-        `.trim();
-
-      document.getElementById('output').value = email;
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
